@@ -28,6 +28,6 @@ public class Server {
 	@GetMapping("/numOfDecks")
 	public String myResponse(@RequestParam(value = "numOfDecks", defaultValue = "3")int numOfDecks) {
 		br = new BlackjackGame(numOfDecks);
-		return new Gson().toJson(new String[]{br.getPlayer().toString(), br.getDealer().toString()});
+		return new Gson().toJson(new Player[]{br.getPlayer(), br.getDealer()});
 	}
 }
