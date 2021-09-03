@@ -3,16 +3,12 @@ package dev.maxg.blackjackserver;
 
 import com.google.gson.Gson;
 import dev.maxg.blackjack.BlackjackGame;
-import dev.maxg.blackjack.Card;
-import dev.maxg.blackjack.Player;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Arrays;
 
 @SpringBootApplication
 @RestController
@@ -26,8 +22,23 @@ public class Server {
 
 	@CrossOrigin("http://localhost:3000")
 	@GetMapping("/numOfDecks")
-	public String myResponse(@RequestParam(value = "numOfDecks", defaultValue = "3")int numOfDecks) {
+	public String dealNewCards(@RequestParam(value = "numOfDecks", defaultValue = "3")int numOfDecks) {
 		br = new BlackjackGame(numOfDecks);
-		return new Gson().toJson(new Player[]{br.getPlayer(), br.getDealer()});
+		return new Gson().toJson(new Object[]{br.getPlayers(), br.getWinner()});
+	}
+
+	@CrossOrigin("http://localhost:3000")
+	@GetMapping("/hit")
+	public String hit() {
+		br.hit();
+		if (br.getPlayer().getTotal() > 21) return new Gson().toJson(new Object[]{br.getPlayers(), br.getDealer()});
+		return new Gson().toJson(new Object[]{br.getPlayers(), null});
+	}
+
+	@CrossOrigin("http://localhost:3000")
+	@GetMapping("/stay")
+	public String stay() {
+		br.dealerPlay();
+		return new Gson().toJson(new Object[]{br.getPlayers(), br.getWinner()});
 	}
 }

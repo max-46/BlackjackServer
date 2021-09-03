@@ -5,6 +5,8 @@
  */
 package dev.maxg.blackjack;
 
+import com.google.gson.Gson;
+
 import java.util.Deque;
 import java.util.Scanner;
 
@@ -84,6 +86,14 @@ public class BlackjackGame {
             }
         }
         return winner;
+    }
+
+    public void hit(){
+        player.giveAnotherCard(cards.pop());
+    }
+
+    public Player[] getPlayers() {
+        return new Player[]{dealer, player};
     }
 
 }
