@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>dev.maxg</groupId>
-	<artifactId>test</artifactId>
+	<artifactId>backjackserver</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>test</name>
-	<description>Test project for Spring Boot</description>
+	<name>backjackserver</name>
+	<description>Blackjack server with Spring Boot</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>11</maven.compiler.source>
