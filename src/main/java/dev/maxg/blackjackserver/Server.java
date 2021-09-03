@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Server {
 
-	static BlackjackGame br;
+	static BlackjackGame bg;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Server.class, args);
@@ -31,22 +31,22 @@ public class Server {
 	@CrossOrigin("http://localhost:3000")
 	@GetMapping("/numOfDecks")
 	public String dealNewCards(@RequestParam(value = "numOfDecks", defaultValue = "3")int numOfDecks) {
-		br = new BlackjackGame(numOfDecks);
-		return sendResultsBeforeStayOrBust(br);
+		bg = new BlackjackGame(numOfDecks);
+		return sendResultsBeforeStayOrBust(bg);
 	}
 
 	@CrossOrigin("http://localhost:3000")
 	@GetMapping("/hit")
 	public String hit() {
-		br.hit();
-		if (br.getPlayer().hasGoneBust()) return new Gson().toJson(new Object[]{br.getPlayers(), br.getDealer()});
-		return sendResultsBeforeStayOrBust(br);
+		bg.hit();
+		if (bg.getPlayer().hasGoneBust()) return new Gson().toJson(new Object[]{bg.getPlayers(), bg.getDealer()});
+		return sendResultsBeforeStayOrBust(bg);
 	}
 
 	@CrossOrigin("http://localhost:3000")
 	@GetMapping("/stay")
 	public String stay() {
-		br.dealerPlay();
-		return new Gson().toJson(new Object[]{br.getPlayers(), br.getWinner()});
+		bg.dealerPlay();
+		return new Gson().toJson(new Object[]{bg.getPlayers(), bg.getWinner()});
 	}
 }
