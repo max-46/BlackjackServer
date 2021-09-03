@@ -84,11 +84,11 @@ public class PlayerTest {
     public void testPlayerHasGoneBust() {
         System.out.println("playerHasGoneBust");
         Player p = new BlackjackGame(1).getPlayer();
-        assertTrue(!p.playerHasGoneBust());
+        assertTrue(!p.hasGoneBust());
         for (int i = 0; i < 3; i++) {
             p.giveAnotherCard(new Card(CardType.KING));
         }
-        assertTrue(p.playerHasGoneBust());
+        assertTrue(p.hasGoneBust());
     }
 
     /**

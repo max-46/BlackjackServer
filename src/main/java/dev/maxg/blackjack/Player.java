@@ -51,7 +51,7 @@ public class Player {
         return total <= 11 ? total + 10 : total;
     }
     
-    public boolean playerHasGoneBust() {
+    public boolean hasGoneBust() {
         return getTotal() > 21;
     }
 

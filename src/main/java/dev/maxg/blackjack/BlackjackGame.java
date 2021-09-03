@@ -5,8 +5,6 @@
  */
 package dev.maxg.blackjack;
 
-import com.google.gson.Gson;
-
 import java.util.Deque;
 import java.util.Scanner;
 
@@ -41,7 +39,7 @@ public class BlackjackGame {
             }
             p.giveAnotherCard(bg.getCards().pop());
         }
-        if (p.playerHasGoneBust()) System.out.println("You have gone bust!");
+        if (p.hasGoneBust()) System.out.println("You have gone bust!");
         bg.dealerPlay();
         System.out.println("The winner is " + bg.getWinner());
     }

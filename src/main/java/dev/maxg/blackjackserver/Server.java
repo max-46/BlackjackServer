@@ -31,7 +31,7 @@ public class Server {
 	@GetMapping("/hit")
 	public String hit() {
 		br.hit();
-		if (br.getPlayer().getTotal() > 21) return new Gson().toJson(new Object[]{br.getPlayers(), br.getDealer()});
+		if (br.getPlayer().hasGoneBust()) return new Gson().toJson(new Object[]{br.getPlayers(), br.getDealer()});
 		return new Gson().toJson(new Object[]{br.getPlayers(), null});
 	}
 
