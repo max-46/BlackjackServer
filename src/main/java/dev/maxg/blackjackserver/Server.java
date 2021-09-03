@@ -21,11 +21,11 @@ public class Server {
 		SpringApplication.run(Server.class, args);
 	}
 
-	private static String sendResultsBeforeStayOrBust(BlackjackGame br) {
+	private static String sendResultsBeforeStayOrBust(BlackjackGame bg) {
 		Player winner = null;
-		if (br.getDealer().has21()) winner = br.getDealer();
-		else if (br.getPlayer().has21()) winner = br.getPlayer();
-		return new Gson().toJson(new Object[]{br.getPlayers(), winner});
+		if (bg.getDealer().has21() || bg.getPlayer().hasGoneBust()) winner = bg.getDealer();
+		else if (bg.getPlayer().has21()) winner = bg.getPlayer();
+		return new Gson().toJson(new Object[]{bg.getPlayers(), winner});
 	}
 
 	@CrossOrigin("http://localhost:3000")
@@ -39,7 +39,6 @@ public class Server {
 	@GetMapping("/hit")
 	public String hit() {
 		bg.hit();
-		if (bg.getPlayer().hasGoneBust()) return new Gson().toJson(new Object[]{bg.getPlayers(), bg.getDealer()});
 		return sendResultsBeforeStayOrBust(bg);
 	}
 
