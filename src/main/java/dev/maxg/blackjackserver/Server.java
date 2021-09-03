@@ -24,7 +24,8 @@ public class Server {
 	@GetMapping("/numOfDecks")
 	public String dealNewCards(@RequestParam(value = "numOfDecks", defaultValue = "3")int numOfDecks) {
 		br = new BlackjackGame(numOfDecks);
-		return new Gson().toJson(new Object[]{br.getPlayers(), br.getWinner()});
+		if (br.getDealer().getTotal() == 21) return new Gson().toJson(new Object[]{br.getPlayers(), br.getDealer()});
+		return new Gson().toJson(new Object[]{br.getPlayers(), null});
 	}
 
 	@CrossOrigin("http://localhost:3000")
