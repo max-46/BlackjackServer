@@ -55,6 +55,10 @@ public class Player {
         return getTotal() > 21;
     }
 
+    public boolean has21() {
+        return getTotal() == 21;
+    }
+
     @Override
     public String toString() {
         return "Player{" + "name=" + name + ", cards=" + cards + ", total=" 

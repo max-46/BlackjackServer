@@ -3,6 +3,7 @@ package dev.maxg.blackjackserver;
 
 import com.google.gson.Gson;
 import dev.maxg.blackjack.BlackjackGame;
+import dev.maxg.blackjack.Player;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,12 +21,18 @@ public class Server {
 		SpringApplication.run(Server.class, args);
 	}
 
+	private static String sendResultsBeforeStayOrBust(BlackjackGame br) {
+		Player winner = null;
+		if (br.getDealer().has21()) winner = br.getDealer();
+		else if (br.getPlayer().has21()) winner = br.getPlayer();
+		return new Gson().toJson(new Object[]{br.getPlayers(), winner});
+	}
+
 	@CrossOrigin("http://localhost:3000")
 	@GetMapping("/numOfDecks")
 	public String dealNewCards(@RequestParam(value = "numOfDecks", defaultValue = "3")int numOfDecks) {
 		br = new BlackjackGame(numOfDecks);
-		if (br.getDealer().getTotal() == 21) return new Gson().toJson(new Object[]{br.getPlayers(), br.getDealer()});
-		return new Gson().toJson(new Object[]{br.getPlayers(), null});
+		return sendResultsBeforeStayOrBust(br);
 	}
 
 	@CrossOrigin("http://localhost:3000")
@@ -33,7 +40,7 @@ public class Server {
 	public String hit() {
 		br.hit();
 		if (br.getPlayer().hasGoneBust()) return new Gson().toJson(new Object[]{br.getPlayers(), br.getDealer()});
-		return new Gson().toJson(new Object[]{br.getPlayers(), null});
+		return sendResultsBeforeStayOrBust(br);
 	}
 
 	@CrossOrigin("http://localhost:3000")
