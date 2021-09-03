@@ -21,7 +21,7 @@ public class Server {
 		SpringApplication.run(Server.class, args);
 	}
 
-	private static String sendResultsBeforeStayOrBust(BlackjackGame bg) {
+	private static String sendPreStayResults(BlackjackGame bg) {
 		Player winner = null;
 		if (bg.getDealer().has21() || bg.getPlayer().hasGoneBust()) winner = bg.getDealer();
 		else if (bg.getPlayer().has21()) winner = bg.getPlayer();
@@ -32,14 +32,14 @@ public class Server {
 	@GetMapping("/numOfDecks")
 	public String dealNewCards(@RequestParam(value = "numOfDecks", defaultValue = "3")int numOfDecks) {
 		bg = new BlackjackGame(numOfDecks);
-		return sendResultsBeforeStayOrBust(bg);
+		return sendPreStayResults(bg);
 	}
 
 	@CrossOrigin("http://localhost:3000")
 	@GetMapping("/hit")
 	public String hit() {
 		bg.hit();
-		return sendResultsBeforeStayOrBust(bg);
+		return sendPreStayResults(bg);
 	}
 
 	@CrossOrigin("http://localhost:3000")
